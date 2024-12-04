@@ -4,10 +4,12 @@
            bottom-slots
            :label="t('shared.index_filter.index_pattern.input.label')"
            :loading="requestState.loading"
-           autocomplete="off">
+           autocomplete="off"
+           @keydown.esc="localValue = '*'">
     <template #hint>
       <div>
-        <q-btn :label="hint" flat class="q-py-none q-px-xs" size="sm" no-caps>
+        <q-btn :label="hint" flat class="q-py-none q-px-xs" size="sm" no-caps
+               :color="indexNames.length === 0 ? 'warning' : ''">
           <q-menu>
             <div class="q-pa-sm">
               <div v-for="index in indexNames" :key="index as string">
@@ -37,8 +39,8 @@
   const { requestState, callElasticsearch } = useElasticsearchAdapter()
   const load = () => {
     return callElasticsearch('catIndices', { index: localValue.value, h: 'index' })
-        .then(body => (indices.value = body))
-        .catch(() => (indices.value = []))
+      .then(body => (indices.value = body))
+      .catch(() => (indices.value = []))
   }
   onMounted(load)
 

@@ -8,7 +8,7 @@
     </q-item-section>
   </q-item>
 
-  <q-dialog v-model="dialog">
+  <q-dialog v-model="dialog" transition-duration="100">
     <q-card style="width: 600px; max-width: 80vw;">
       <q-card-section class="flex justify-between">
         <div class="flex">
@@ -51,7 +51,7 @@
       <q-separator />
 
       <q-table v-if="aliases.length > 0"
-               class="table-mono"
+               class="table-mono table-hide-overflow"
                flat
                dense
                row-key="alias"

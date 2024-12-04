@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test'
 import { openElasticvue } from '../../helpers'
 
+test.describe.configure({ mode: 'parallel' });
+
 test.describe('base', () => {
   test('has a title', async ({ page }) => {
     await openElasticvue(page)
@@ -18,8 +20,9 @@ test.describe('base', () => {
 
       test('can change to dark theme', async ({ page }) => {
         await openElasticvue(page)
-        const body = await page.locator('body')
-        page.getByTestId('change-theme-button').click()
+        const body = page.locator('body')
+        await page.getByTestId('change-theme-button').click()
+        await page.getByTestId('change-theme__dark').click()
 
         await expect(body).toHaveClass(/theme--dark/)
         await expect(body).not.toHaveClass(/theme--light/)
@@ -29,9 +32,9 @@ test.describe('base', () => {
     test.describe('language', () => {
       test('defaults to english', async ({ page }) => {
         await openElasticvue(page)
-        page.getByTestId('change-language-button').click()
+        await page.getByTestId('change-language-button').click()
 
-        await expect(page.getByTestId('change-language__english')).toHaveClass(/q-item--active/)
+        await expect(page.getByTestId('change-language__en')).toHaveClass(/q-item--active/)
       })
     })
   })

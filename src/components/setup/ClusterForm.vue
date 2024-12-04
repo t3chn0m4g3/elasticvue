@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="testConnection">
-    <cluster-form-fields v-model="cluster" v-model:formValid="formValid" />
+    <cluster-form-fields v-model="cluster" v-model:form-valid="formValid" />
 
     <q-separator class="q-my-lg" />
 
@@ -49,8 +49,8 @@
     if (!formValid.value) return
 
     connect().then(idx => props.connectCallback(idx))
-        .catch(() => {
-        })
+      .catch(() => {
+      })
   }
   const emit = defineEmits(['update:modelValue'])
   watch(cluster, value => emit('update:modelValue', value))

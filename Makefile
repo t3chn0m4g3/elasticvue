@@ -4,10 +4,7 @@ build_docker_ci:
 	docker build -f docker/Dockerfile_ci -t elasticvue-ci .
 
 ci: build_docker_ci
-	docker run --rm elasticvue-ci yarn lint
-	docker run --rm elasticvue-ci yarn tsc
-	docker run --rm elasticvue-ci yarn test:unit
-	docker run --rm -e CI="$(CI)" -v ./playwright-report-ci:/app/playwright-report elasticvue-ci yarn test:e2e:all
+	docker run --rm -e CI="$(CI)" -v ./playwright-report-ci:/app/playwright-report elasticvue-ci yarn ci
 
 build_tauri:
 	yarn tauri:build
@@ -28,3 +25,6 @@ build_browser_extensions:
 
 run_docker_nginx:
 	docker run -p 8080:8080 elasticvue
+
+e2e: build_docker_ci
+	docker run --rm -v ./playwright-report-ci:/app/playwright-report elasticvue-ci yarn test:e2e $(TEST)

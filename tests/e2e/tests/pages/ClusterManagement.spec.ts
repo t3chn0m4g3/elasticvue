@@ -2,6 +2,8 @@ import { test, expect, Page } from '@playwright/test'
 import { setupClusterConnection } from '../../helpers'
 import { withElastic } from '../../mocks'
 
+test.describe.configure({ mode: 'parallel' });
+
 const setupClusterSelectionTest = async (page: Page) => {
   await setupClusterConnection(page)
   await page.getByTestId('cluster-selection').click()
@@ -38,6 +40,7 @@ withElastic(({ mockElastic, elastic }) => {
         await setupClusterSelectionTest(page)
         await page.getByTestId('cluster-table-row-1').click()
 
+        await page.waitForURL('**/cluster/1')
         expect(page.url()).toContain('/cluster/1')
       })
 

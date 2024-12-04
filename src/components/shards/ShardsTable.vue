@@ -1,21 +1,30 @@
 <template>
-  <div class="flex justify-end q-pa-md">
-    <filter-input v-model="filter" />
+  <div class="flex justify-between q-pa-md">
+    <div class="flex">
+      <q-btn v-if="Object.keys(currentReroutingShard).length > 0"
+             :label="t('shards.shards_table.cancel_relocation')"
+             color="primary-dark"
+             @click="cancelRelocation" />
+    </div>
 
-    <q-btn icon="settings" round flat class="q-ml-sm">
-      <q-menu style="white-space: nowrap" anchor="bottom right" self="top end">
-        <q-list dense>
-          <q-item style="padding-left: 0">
-            <q-checkbox v-model="indicesStore.showHiddenIndices" size="32px"
-                        :label="t('indices.indices_table.show_hidden_indices.label')" />
-          </q-item>
-        </q-list>
-      </q-menu>
-    </q-btn>
+    <div class="flex">
+      <filter-input v-model="filter" />
+
+      <q-btn icon="settings" round flat class="q-ml-sm">
+        <q-menu style="white-space: nowrap" anchor="bottom right" self="top end">
+          <q-list dense>
+            <q-item style="padding-left: 0">
+              <q-checkbox v-model="indicesStore.showHiddenIndices" size="32px"
+                          :label="t('indices.indices_table.show_hidden_indices.label')" />
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+    </div>
   </div>
 
   <q-table v-model:pagination="pagination"
-           class="table-mono"
+           class="table-mono table-hide-overflow"
            flat
            dense
            :columns="columns"
@@ -38,7 +47,7 @@
             </svg>
             <span :class="{'text-underline': currentReroutingShard.index === col.name}">{{ col.label }}</span>
           </div>
-          <small class="text-weight-regular">
+          <small class="text-weight-regular" :title="`${shards.indices[col.name].pri} pri / ${shards.indices[col.name].rep} rep`">
             {{ shards.indices[col.name].pri }}/{{ shards.indices[col.name].rep }} shards
           </small>
         </q-th>
@@ -53,8 +62,10 @@
             :class="{marked: markedColumnIndex === i}"
             @mouseover="markColumn(i)"
             @mouseleave="unmarkColumn">
-          <index-shard v-for="(shard, j) in shards.unassignedShards[col.name]"
-                       :key="`${col.name}_unassigned_${i}_${j}_shards`" :shard="shard" />
+          <div class="flex">
+            <index-shard v-for="(shard, j) in shards.unassignedShards[col.name]"
+                         :key="`${col.name}_unassigned_${i}_${j}_shards`" :shard="shard" />
+          </div>
         </td>
       </tr>
     </template>
@@ -66,15 +77,19 @@
             :class="{marked: markedColumnIndex === i}"
             @mouseover="markColumn(i)"
             @mouseleave="unmarkColumn">
-          <index-shard v-for="(shard, j) in shards.shards?.[row]?.[col.name]"
-                       :key="`${col.name}_actual_shard_${i}_${j}`"
-                       :shard="shard"
-                       :action="initReroute"
-                       re-routable
-                       :outlined="!(currentReroutingShard.index === col.name && currentReroutingShard.node === row && currentReroutingShard.shard === shard.shard)" />
+          <div class="flex">
+            <index-shard v-for="(shard, j) in shards.shards?.[row]?.[col.name]"
+                         :key="`${col.name}_actual_shard_${i}_${j}`"
+                         :shard="shard"
+                         :action="initReroute"
+                         re-routable
+                         :outlined="!(currentReroutingShard.index === col.name && currentReroutingShard.node === row && currentReroutingShard.shard === shard.shard)" />
 
-          <div v-if="currentReroutingShard.index === col.name && currentReroutingShard.node !== row">
-            <button class="shard-reroute-target" @click="reroute(currentReroutingShard, row)" />
+            <div v-if="currentReroutingShard.index === col.name && currentReroutingShard.node !== row">
+              <button class="shard-reroute-target" @click="reroute(currentReroutingShard, row)">
+                {{ t('shards.shards_table.reroute.label', { node: row }) }}
+              </button>
+            </div>
           </div>
         </td>
       </tr>
@@ -103,6 +118,7 @@
     markColumn,
     unmarkColumn,
     currentReroutingShard,
+    cancelRelocation,
     initReroute,
     reroute
   } = useShardsTable(props, emit)

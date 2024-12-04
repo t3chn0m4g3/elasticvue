@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-8 offset-md-2 col-sm-12">
       <q-card>
-        <q-card-section>
-          <h1 class="text-h5 q-my-none">
+        <q-card-section class="q-mt-lg">
+          <h1 class="text-h5 q-my-none ">
             {{ t('settings.heading') }}
           </h1>
         </q-card-section>
@@ -49,6 +49,12 @@
               <q-checkbox v-model="searchStore.localizeTimestamp" :label="t('settings.localize_timestamp.label')" />
             </div>
           </div>
+
+          <div class="row q-mb-lg">
+            <div class="col-md-6 col-sm-12">
+              <q-checkbox v-model="codeEditorStore.vimMode" :label="t('settings.editor_vim_mode.label')" />
+            </div>
+          </div>
         </q-card-section>
       </q-card>
 
@@ -82,11 +88,13 @@
   import ImportExport from './ImportExport.vue'
   import { useSearchStore } from '../../store/search.ts'
   import { useNodesStore } from '../../store/nodes.ts'
+  import { useCodeEditorStore } from '../../store/codeEditor.ts'
 
   const t = useTranslation()
   const indicesStore = useIndicesStore()
   const nodesStore = useNodesStore()
   const searchStore = useSearchStore()
+  const codeEditorStore = useCodeEditorStore()
 
   const resetHideIndicesRegex = () => (indicesStore.hideIndicesRegex = DEFAULT_HIDE_INDICES_REGEX)
   const resetHideNodesAttributesRegex = () => (nodesStore.hideAttributesRegex = DEFAULT_HIDE_NODE_ATTRIBUTES_REGEX)

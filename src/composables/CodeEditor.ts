@@ -12,6 +12,7 @@ import { useCodeEditorStore } from '../store/codeEditor.ts'
 import { syntaxTree } from '@codemirror/language'
 import { autocompletion } from '@codemirror/autocomplete'
 import { queryKeywords, queryValues } from '../autocomplete.ts'
+import { vim } from '@replit/codemirror-vim'
 
 /*
  JsonText
@@ -54,11 +55,13 @@ const completions = (context: any) => {
 export const useCodeEditor = (editorRef: Ref<HTMLElement | null>, {
   initialValue,
   emit,
-  commands
+  commands,
+  onPaste
 }: {
   initialValue: Ref<string>,
   emit?: any,
-  commands?: KeyBinding[]
+  commands?: KeyBinding[],
+  onPaste?: (data: string) => void
 }) => {
   const codeEditorStore = useCodeEditorStore()
 
@@ -78,12 +81,27 @@ export const useCodeEditor = (editorRef: Ref<HTMLElement | null>, {
       emit('update:modelValue', editorValue())
     })
 
+    const eventHandlers = []
+    if (onPaste) {
+      const handler = EditorView.domEventHandlers({
+        paste(event) {
+          const newValue = event.clipboardData?.getData('text')
+          if (newValue) onPaste(newValue)
+        }
+      })
+      eventHandlers.push(handler)
+    }
+
+    const vimExtension = vim()
     codeMirrorEditor = new EditorView({
       extensions: [
+        // make sure vim is included before other keymaps
+        codeEditorStore.vimMode ? vimExtension : [],
         basicSetup,
         json(),
         autocompletion({ override: [completions] }),
         onChange,
+        eventHandlers,
         keymap.of([indentWithTab]),
         Prec.highest(keymap.of(commands || [])),
         keymap.of([{ key: 'Ctrl-Alt-l', mac: 'Ctrl-Cmd-l', run: beautifyEditorValue }]),

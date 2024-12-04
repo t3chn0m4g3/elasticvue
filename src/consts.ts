@@ -8,9 +8,10 @@ export const REQUEST_DEFAULT_HEADERS = {
 export const SUPPORTED_COUNTRY_LOCALES: Record<string, ValidLocale> = {
   en: 'en',
   cn: 'cn',
-  zh: 'cn'
+  zh: 'cn',
+  fr: 'fr'
 }
-export type ValidLocale = 'en' | 'cn'
+export type ValidLocale = 'en' | 'cn' | 'fr'
 export const DEFAULT_LOCALE: ValidLocale = 'en'
 
 export const DEFAULT_ROWS_PER_PAGE = [10, 20, 100, 0]
@@ -32,6 +33,11 @@ export const DEFAULT_PAGINATION = {
 
 export const DEFAULT_CLUSTER_NAME = 'default cluster'
 export const DEFAULT_CLUSTER_URI = 'http://localhost:9200'
+
+export const DISTRIBUTIONS = {
+  elasticsearch: 'elasticsearch',
+  opensearch: 'opensearch'
+}
 
 export const REST_QUERY_EXAMPLES = [
   {

@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test'
 import { setupClusterConnection } from '../helpers'
 import { withElastic } from '../mocks'
 
+test.describe.configure({ mode: 'parallel' });
+
 withElastic(({ mockElastic, elastic }) => {
   test.describe(`elasticsearch ${elastic.version}`, () => {
     test.describe('Routing', () => {
@@ -140,6 +142,7 @@ withElastic(({ mockElastic, elastic }) => {
 
           for (const value of invalids) {
             await page.goto(`http://localhost:5175/cluster/${value}`)
+            await page.waitForURL('**/cluster/0')
             expect(page.url()).toContain('/cluster/0')
           }
         })

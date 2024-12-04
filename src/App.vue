@@ -4,7 +4,6 @@
 
     <q-page-container>
       <div class="q-ma-md">
-        <survey-display />
         <router-view v-if="connectionStore.activeCluster?.status !== 'unknown' || route.name === 'settings'" />
         <div v-else class="q-pa-lg">
           <div class="row">
@@ -31,9 +30,9 @@
   import ModalLoader from './components/shared/ModalLoader.vue'
   import AlertSnackbar from './components/shared/AlertSnackbar.vue'
   import NetworkError from './components/shared/NetworkError.vue'
-  import { useThemeStore } from './store/theme.js'
+  import { useThemeStore } from './store/theme.ts'
   import { useConnectionStore } from './store/connection'
-  import SurveyDisplay from './components/base/SurveyDisplay.vue'
+  import { setAppThemeCss, setupThemeListener } from './helpers/theme.ts'
 
   const themeStore = useThemeStore()
   const connectionStore = useConnectionStore()
@@ -41,12 +40,7 @@
   const route = useRoute()
 
   onMounted(() => {
-    if (themeStore.dark) {
-      document.body.classList.remove('body--light')
-      document.body.classList.add('theme--dark')
-    } else {
-      document.body.classList.remove('theme--dark')
-      document.body.classList.add('theme--light')
-    }
+    setAppThemeCss(themeStore.appTheme)
+    setupThemeListener()
   })
 </script>

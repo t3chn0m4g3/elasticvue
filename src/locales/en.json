@@ -12,8 +12,7 @@
         "shards": "Shards",
         "search": "Search",
         "rest": "REST",
-        "snapshots": "Snapshots",
-        "repositories": "Repositories"
+        "snapshots": "Snapshots"
       }
     },
     "language_switcher": {
@@ -24,6 +23,9 @@
         },
         "cn": {
           "title": "Chinese"
+        },
+        "fr": {
+          "title": "French"
         }
       }
     },
@@ -129,7 +131,6 @@
         "title": "{pri} primary\n{rep} replica"
       },
       "options": {
-        "title": "Options",
         "show_info": "Show info",
         "show_stats": "Show stats",
         "forcemerge": {
@@ -185,10 +186,10 @@
           "aliases": "Aliases",
           "shards": "Shards",
           "segments": "Segments",
-          "docs": "Lucene docs",
+          "docs": "Docs",
           "storage": "Storage",
+          "created": "Created",
           "parsed_docs_count": {
-            "title": "If your index has fields with \"type\": \"nested\" then the number of lucene documents might not match the number of elasticsearch documents in your index. Each nested object counts as a separate document. Use the _count API if you need the number of elasticsearch documents."
           }
         }
       }
@@ -217,9 +218,7 @@
       "table": {
         "headers": {
           "name": "Name",
-          "index_patterns": "index_patterns",
-          "priority": "priority",
-          "version": "version"
+          "index_patterns": "index_patterns"
         }
       }
     }
@@ -260,15 +259,14 @@
       "heap": "heap",
       "disk": "disk",
       "name": "name",
-      "status": "status"
+      "status": "status",
+      "version": "version"
     }
   },
   "query": {
     "heading": "Rest",
     "api_documentation": "api documentation",
     "orientation": {
-      "horizontal": "Horizontal",
-      "vertical": "Vertical"
     },
     "rest": {
       "history": "History",
@@ -281,8 +279,8 @@
         },
         "send_request": "Send request",
         "save_request": "Save",
-        "reset": "Reset",
-        "download_as_json": "Download response body"
+        "download_as_json": "Download response body",
+        "paste_kibana": "Paste kibana console query"
       },
       "get_request_hint": {
         "cannot_send_body": "You cannot send a request body via {method}.<br> Please ",
@@ -298,23 +296,15 @@
           "timestamp": "Timestamp"
         },
         "row": {
-          "title": "Click to preview request body, ctrl+click to directly use.",
           "favorite": {
-            "add": "Favorite",
-            "remove": "Remove favorite"
           }
         }
       },
       "clear": {
-        "text": "Clear",
-        "all": "Delete all",
-        "only_non_favorites": "Delete only non-favorites"
       },
       "body_preview": {
         "use": "Use in current tab",
-        "open_new_tab": "Open in new tab",
-        "remove_entry": "Remove entry",
-        "unselect": "unselect"
+        "open_new_tab": "Open in new tab"
       }
     },
     "rest_query_examples": {
@@ -322,13 +312,9 @@
       "table": {
         "headers": {
           "query": "Query",
-          "description": "Description",
-          "body": "Body",
-          "use": "Use"
+          "description": "Description"
         },
         "row": {
-          "title": "Click to preview request body, ctrl+click to directly use an example.",
-          "docs": "Docs",
           "use": "Use"
         }
       }
@@ -391,7 +377,6 @@
           "settings": "settings"
         },
         "row": {
-          "delete": "Delete"
         }
       },
       "delete_repository": {
@@ -404,23 +389,22 @@
     "heading": "Search",
     "form": {
       "query": {
-        "label": "Search",
-        "messages": "Searching supports the <a tabindex='-1' target='_blank' rel='noopener' href='https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html'>query string DSL</a>"
+        "label": "Search"
+      },
+      "search_examples": {
+        "button": "Search examples",
+        "hint": "Search examples, see <a tabindex='-1' target='_blank' rel='noopener' href='https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html'>query string query</a> for details"
       },
       "search": "Search",
       "customize_query": {
         "button": "Custom search",
-        "hint": "Hint: changes to the query will not update the respecting inputs in the ui (like the search query or pagination/sort in the table), but changes to the inputs will be merged into the query again.",
-        "reset": "Reset query",
-        "reset_all": "Reset all"
+        "reset": "Reset query"
       }
     },
     "search_result": {
       "show": {
-        "title": "Show document"
       },
       "edit": {
-        "text": "Edit document"
       },
       "delete": {
         "text": "# | Delete document | Delete documents",
@@ -430,13 +414,10 @@
     },
     "results_table": {
       "filter": {
-        "label": "Filter *current* page..."
       },
       "settings": {
-        "title": "Table settings",
         "columns": "Columns",
         "sticky_table_header": {
-          "label": "Sticky table header"
         }
       },
       "download_as_json": "Download as json"
@@ -447,6 +428,8 @@
         "growl": "Document updated successfully."
       }
     }
+  },
+  "editor": {
   },
   "settings": {
     "heading": "Settings",
@@ -481,10 +464,12 @@
         "select_file": "Chose file...",
         "import": "Import backup"
       }
+    },
+    "editor_vim_mode": {
+      "label": "Use vim keybindings in editor"
     }
   },
   "setup": {
-    "heading": "Setup",
     "configure": {
       "heading": "1. Configure",
       "introduction": "You have to setup CORS to use elasticvue web. Add the following lines to your",
@@ -537,13 +522,16 @@
   "shards": {
     "heading": "Shards",
     "shards_table": {
-      "cancel_relocation": "Cancel relocation"
+      "cancel_relocation": "Cancel reroute",
+      "reroute": {
+        "label": "reroute to '{node}'",
+        "confirm": "Reroute shard '{shard}' from node '{fromNode}' to '{toNode}'?"
+      }
     }
   },
   "shared": {
     "cluster_connection_errors": {
       "connection_error": "Connection error",
-      "http_error": "HTTP error",
       "cant_connect": "Can't connect to your cluster.",
       "please_check": "Please make sure that",
       "checklist": {
@@ -552,8 +540,6 @@
         "cors": "You have enabled CORS and restarted your cluster"
       }
     },
-    "nothing_found_for_filter": "No entries found for filter '{filter}'.",
-    "nothing_found": "No entries found.",
     "index_filter": {
       "use_index_pattern": "use index pattern",
       "use_index_select": "select indices",
@@ -569,28 +555,28 @@
         },
         "indices_selected": "indices selected",
         "select_all": {
-          "text": "select all",
-          "title": "Select all indices"
+          "text": "select all"
         },
         "deselect_all": {
-          "text": "deselect all",
-          "title": "Deselect all indices"
+          "text": "deselect all"
         },
         "show_hidden": {
-          "label": "show hidden",
-          "title": "Show indices starting with a dot"
         }
+      }
+    },
+    "table_bottom": {
+      "rows_per_page": {
+        "confirm": "WARNING: Are you sure? Showing {value} entries at once might cause issues or freezes. It is recommended to use the search/filter functionality to limit the results."
       }
     },
     "table_settings": {
       "reset": "reset",
-      "uncheck": "uncheck"
+      "clear": "clear"
     },
     "authorization_header_hint": "Make sure that \"http.cors.allow-headers\" is configured",
     "code_editor": {
       "actions": {
         "copy_content": {
-          "title": "Copy content"
         },
         "beautify": {
           "title": "Beautify (Ctrl+ALT+L)",
@@ -601,7 +587,6 @@
           "title": "Wrap long lines"
         },
         "keyboard_shortcuts": {
-          "text": "Keyboard shortcuts"
         }
       }
     },
@@ -612,19 +597,7 @@
     },
     "modal_data_loader": {
       "modal_title": {
-        "default": "Show"
       }
-    },
-    "path_repo_info": {
-      "success": {
-        "info": "Your <strong>path.repo</strong> setting seems to be setup correctly, that means you can use repositories and snapshots.",
-        "current_value": "The current value is: "
-      },
-      "error": {
-        "info": "Your <strong>path.repo</strong> setting is not setup correctly.<br> You have to set <strong>path.repo</strong> in your <strong>elasticsearch.yml</strong> if you want to use snapshots and repositories."
-      },
-      "docs": "Docs",
-      "reload": "Reload"
     },
     "reload_button": {
       "reload": "Reload"
@@ -645,7 +618,6 @@
       "heading": "New snapshot",
       "form": {
         "repository": {
-          "label": "Repository"
         },
         "snapshot_name": {
           "label": "Snapshot name"
@@ -656,7 +628,6 @@
       }
     },
     "restore_snapshot": {
-      "button": "Restore",
       "heading": "Restore '{name}'",
       "form": {
         "ignore_unavailable": {
@@ -679,15 +650,12 @@
     },
     "snapshot": {
       "indices": "{count} indices",
-      "options": "Options",
       "delete": {
-        "text": "Delete snapshot",
         "confirm": "Delete snapshot '{snapshot}'?",
         "growl": "The snapshot '{snapshot}' was successfully deleted."
       }
     },
     "snapshots_table": {
-      "no_repository_selected": "Please select a repository first.",
       "table": {
         "headers": {
           "status": "status",
@@ -703,10 +671,8 @@
     },
     "snapshots_table_wrapper": {
       "repository": {
-        "label": "Repository"
       },
       "filter": {
-        "label": "Filter id..."
       }
     }
   },

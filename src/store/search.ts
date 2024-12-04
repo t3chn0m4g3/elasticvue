@@ -12,6 +12,7 @@ type SearchState = {
   visibleColumns: string[]
   stickyTableHeader: boolean
   pagination: any
+  rowsPerPageAccepted: boolean
 }
 
 export const useSearchStore = () => {
@@ -28,15 +29,17 @@ export const useSearchStore = () => {
       columns: [],
       visibleColumns: [],
       stickyTableHeader: false,
-      pagination: DEFAULT_PAGINATION
+      pagination: Object.assign({}, DEFAULT_PAGINATION),
+      rowsPerPageAccepted: false
     }),
     actions: {
       resetSearchQuery () {
         this.searchQuery = DEFAULT_SEARCH_QUERY
+        this.pagination = Object.assign({}, DEFAULT_PAGINATION)
       }
     },
     persist: {
-      paths: [
+      pick: [
         'localizeTimestamp',
         'q',
         'indices',
@@ -45,7 +48,8 @@ export const useSearchStore = () => {
         'stickyTableHeader',
         'pagination',
         'columns',
-        'visibleColumns'
+        'visibleColumns',
+        'rowsPerPageAccepted'
       ],
       key: `search-${clusterUuid}`
     }

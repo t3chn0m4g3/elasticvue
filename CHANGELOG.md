@@ -1,8 +1,69 @@
 # Changelog
 
+## 1.1.0
+
+* update to tauri `2.0`, fixes [#228](https://github.com/cars10/elasticvue/issues/228)
+* adds `auto` theme setting (default), fixes [#255](https://github.com/cars10/elasticvue/issues/255)
+* adds support for `http_proxy` env variable for elasticvue desktop, fixes [#241](https://github.com/cars10/elasticvue/issues/241)
+
+## 1.0.12
+
+* parse kibana console queries on paste in REST editor. You can paste kibana console queries into the editor (or use the dedicated button) to fill out the form automatically.
+* fix sorting issue when changing indices, fixes [#261](https://github.com/cars10/elasticvue/issues/261)
+
+## 1.0.11
+
+* show node version on nodes overview, fixes [#260](https://github.com/cars10/elasticvue/issues/260)
+* add vim mode in editor, thanks @fqdeng, fixes [#253](https://github.com/cars10/elasticvue/pull/253)
+* update chinese translation, thanks @XiangtingLee, fixes [#251](https://github.com/cars10/elasticvue/pull/251)
+* adds french translation, thanks @XNxa, fixes [#250](https://github.com/cars10/elasticvue/pull/250)
+* update to vue `3.5`
+
+## 1.0.10
+
+* fix table column size regression introduced in `1.0.9`, fixes [#245](https://github.com/cars10/elasticvue/issues/245)
+* fix filtering when `null` values are present, fixes [#244](https://github.com/cars10/elasticvue/issues/244)
+* reset search table sort when changing index
+
+## 1.0.9
+
+* improve index templates, fixes [#242](https://github.com/cars10/elasticvue/issues/242)
+* improve shards table, fixes [#237](https://github.com/cars10/elasticvue/issues/237)
+* fix handling of index names including `%`, fixes [#221](https://github.com/cars10/elasticvue/issues/221)
+* dependency updates
+
+## 1.0.8
+
+* fix update&delete documents that use `routing`, fixes [#235](https://github.com/cars10/elasticvue/issues/235)
+* adds shard relocation confirm msg and cancel button, fixes [#236](https://github.com/cars10/elasticvue/issues/236)
+* fix ui issue with long cluster names, fixes [#230](https://github.com/cars10/elasticvue/issues/230)
+
+## 1.0.7
+
+This release contains no changes to elasticvue itself. It is only done to fix build issues with the macos desktop
+version.
+
+## 1.0.6
+
+* double click to edit search results, fixes [#225](https://github.com/cars10/elasticvue/issues/225)
+
+## 1.0.5
+
+* adds request logging to desktop app
+* fix issue when elasticsearch url ends with a slash, fixes [#214](https://github.com/cars10/elasticvue/pull/214)
+* fix build setup when hosting elasticvue on a subdirectory
+* fix error when showing documents that include `id` prop, fixes [#219](https://github.com/cars10/elasticvue/issues/219)
+* save per_page & sort settings on indices page
+* show index creation date on indices page
+* warn when selecting huge page sizes
+* add some query string examples
+* show search query execution time
+* adds "clear" button to search column selection options
+
 ## 1.0.4
 
-* show shard size on hover, fixes [#199](https://github.com/cars10/elasticvue/pull/199) and [#203](https://github.com/cars10/elasticvue/pull/203)
+* show shard size on hover, fixes [#199](https://github.com/cars10/elasticvue/pull/199)
+  and [#203](https://github.com/cars10/elasticvue/pull/203)
 * fix cluster selection filter, fixes [#210](https://github.com/cars10/elasticvue/issues/210)
 * limit index bulk actions to 16 indices sent in chunks, fixes [#213](https://github.com/cars10/elasticvue/issues/213)
 
